@@ -1,0 +1,128 @@
+\documentclass[notheorems,hyperref={bookmarks=true}]{beamer}
+\usepackage[framesassubsections]{beamerprosper}
+\hypersetup{pdfpagemode=FullScreen}
+\usepackage[utf8]{vietnam}
+\usepackage{mdframed}
+\usepackage[english]{babel}
+\usepackage{ulem} %for underlying+
+\usepackage{pifont} %for creating dingautolist
+\usepackage[mathscr]{eucal}
+\usepackage{amsfonts,amsmath, amsthm, amssymb,amsxtra,latexsym,amscd,graphics,graphpap}
+\usepackage{indentfirst}
+\usepackage{rotating}
+\usepackage{graphicx}
+\usepackage{amsbsy}
+\usepackage{epsfig}
+\usepackage{natbib}
+\usepackage{cases} 
+
+\usepackage{pdfpages}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{subfigure}
+\usepackage{multimedia}
+\usepackage{boxedminipage}
+\usepackage{tikz}
+\usepackage{nicefrac}
+\setbeamertemplate{theorems}[numbered] % Đánh số định lý.
+\usetheme{Boadilla} % puts title, section, etc on top
+
+\usecolortheme{rose} 
+\usefonttheme[onlylarge]{structurebold}
+\usefonttheme{professionalfonts}
+\setbeamercolor{title}{fg=red!80!black,bg=blue!20!white}
+\setbeamertemplate{section in head/foot shaded}[default][20]
+\setbeamertemplate{subsection in head/foot shaded}[default][20]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamerfont{small}{size=\small}
+\setbeamerfont{footnote}{size=\footnotesize}
+\setbeamerfont{script}{size=\scriptsize}
+\setbeamerfont{tiny}{size=\tiny}
+
+\theoremstyle{plain}
+\newcommand{\thedefinition}{\arabic{section}.\arabic{definition}}
+\newcommand{\thelemma}{\arabic{section}.\arabic{lemma}}
+\newcommand{\thetheorem}{\arabic{section}.\arabic{theorem}}
+\renewcommand{\thetable}{\Roman{table}}
+
+\mode<presentation>
+\setbeamertemplate{navigation symbols}{} 
+
+\usepackage{wrapfig}
+\usepackage{multicol}
+%\setbeamertemplate{footline}{\raisebox{-2.2ex}{\pgfuseimage{logo.png}}}
+
+\title[{\makebox[.15\paperwidth]{VAR \& Holt-Winters in demand forecasting }}]{Mô hình VAR và Holt-Winters và ứng dụng trong bài toán dự đoán nhu cầu sản phẩm} 
+\author[Group 1]{Group 1
+\\
+Tạ Duy Hải - 20206197\\
+Nguyễn Văn Nghiêm - 20206206\\
+Nguyễn Hoàng Sơn - 20206165} 
+\date{Hanoi, 1/2024}
+
+\renewcommand{\sfdefault}{cmss}
+\renewcommand{\rmdefault}{cmr}
+\renewcommand{\ttdefault}{cmtt}
+\numberwithin{equation}{section}
+\usepackage{array}
+\usepackage{ragged2e}
+\justifying
+\usepackage{blindtext}
+\usepackage{geometry}
+ \geometry{
+right = 5.5mm
+ }
+\renewcommand{\baselinestretch}{1.15}
+\setlength{\parindent}{1.5em}
+%\setlength{\parskip}{1em}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newtheorem{prop}{Proposition}
+\usepackage{amsmath}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{hypothesis}{Hypothesis}
+\usepackage{esvect}
+\usepackage{booktabs}
+\usepackage{multirow}
+\begin{document}
+	\begin{footnotesize}
+		\begin{frame}
+			\frametitle{}
+			\maketitle
+			%	\begin{block}
+			%	\titlepage
+			%	\end{block}
+		\end{frame}
+		
+		\AtBeginSection[] % Do nothing for \section*
+		{
+			\begin{frame}<beamer>
+				\frametitle{Outline}
+				\tableofcontents[currentsection, currentsubsection]
+			\end{frame}
+		}
+	\begin{frame}{Outline}
+	    \tableofcontents
+	\end{frame}	
+\section{Giới thiệu bài toán}
+\input{chap1}
+\section{Mô hình VAR}
+\input{chap2}
+\section{Mô hình làm mượt Holt-Winters}
+\input{chap3}
+\section{Kết quả thực nghiệm}
+\input{chap4}
+\section{Kết luận}
+\input{chap5}
+\end{footnotesize}
+\begin{frame}{}
+\centering
+    \Huge{Thanks for listening!}
+\end{frame}
+\bibliographystyle{plain}
+\bibliography{References.bib}   
+
+
+\end{document}

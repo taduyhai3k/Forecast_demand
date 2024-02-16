@@ -1,0 +1,410 @@
+\documentclass[13pt]{report}
+\usepackage[utf8]{vietnam}
+\usepackage[T5]{fontenc}
+\usepackage{indentfirst}
+\usepackage[portrait,left=3.50cm, right=2.50cm, top=2.00cm, bottom=2.00cm]{geometry}
+\usepackage[fontsize=13pt]{scrextend}
+\usepackage{graphicx}
+%\usepackage{amsmath}
+\usepackage[linesnumbered,ruled]{algorithm2e}
+%\usepackage{algorithm,algorithmic}
+\usepackage[ruled]{algorithm2e}
+\usepackage{mathrsfs} 
+\usepackage{amsfonts}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{multirow} 
+\usepackage[pdftex, % Sử dụng PDF TeX
+bookmarks=true, % Tạo bookmarks trong tập tin PDF
+pdfencoding=auto, % Tự động điều chỉnh encoding của PDF
+unicode=true, % Sử dụng Unicode
+pdffitwindow=true, % Fit cho vừa cửa sổ
+pdfstartview={FitH}, % Zoom file PDF cho vừa khít với nội dung
+]{hyperref}
+
+\usepackage{longtable}
+\usepackage[intlimits]{amsmath}
+\usepackage{amsmath, amsthm, amssymb,latexsym,amscd,amsfonts,enumerate}
+\usepackage{fancyhdr}
+\usepackage{fancybox,graphicx}
+\usepackage[final]{pdfpages}
+\usepackage{caption}
+\pagestyle{fancy}
+\usepackage{tikz}
+\usepackage[noend]{algpseudocode}
+\usepackage{algpseudocode}
+\usepackage[ruled]{algorithm2e}
+%\usepackage{subfig}
+\usepackage{listings}
+%\usepackage[comma,authoryear,round]
+%\usepackage{natbib}
+\lstset{language=Python}
+%\SetAlFnt{\large}
+%\SetAlCapFnt{\Large}
+%\SetAlCapNameFnt{\Large}
+\usepackage[titletoc,toc,page]{appendix}
+\usepackage{ upgreek }
+\usepackage{bm}
+% \newcounter{example}[section]
+% \newenvironment{example}[1][]{\refstepcounter{example}\par\medskip
+%   \noindent \textbf{Ví dụ~\theexample. #1} \rmfamily}{{\medskip}
+%\newtheorem{dn}{Định nghĩa}[section]
+
+%\newtheorem{tc}[dn]{Tính chất}
+
+%\newtheorem{dl}[dn]{Định lí}
+
+%\newtheorem{md}{Mệnh đề}[section]
+
+%\newtheorem{bd}[dn]{Bổ đề}
+
+%\newtheorem{hq}[dn]{Hệ quả}
+
+%\newtheorem{nx}[dn]{Nhận xét}
+
+%\newtheorem{vd}{Ví dụ}[section]
+
+\numberwithin{equation}{section} 
+
+
+\usetikzlibrary{calc}
+\usepackage{titlesec}
+
+\titleformat{\chapter}
+{\filcenter\normalfont\Large\bfseries}
+{\MakeUppercase{\chaptertitlename}~\thechapter.} {0.5em} {}
+
+%\usepackage{sectsty}
+%\chapterfont{\centering}
+%\renewcommand\cftpartfont{\LARGE\bfseries}
+%\partfont{\Huge}
+\fancyhf{}
+\rhead{NHÓM I}
+\lhead{ĐỒ ÁN CHUỖI THỜI GIAN}
+\cfoot{\thepage}
+\newtheorem{definition}{Định nghĩa}[chapter]
+\renewcommand{\algorithmcfname}{Thuật toán}
+\renewcommand{\listalgorithmcfname}{Danh sách thuật toán}
+\renewcommand{\baselinestretch}{1.5}
+
+
+\DeclareMathOperator*{\argmin}{argmin}
+
+\setlength{\parindent}{1cm} % Set khoảng cách thụt đầu dòng mỗi đoạn
+\usepackage{epigraph}
+
+\usepackage{tabularx}
+
+\usepackage{ragged2e}
+\usepackage{float}
+\usepackage{caption}
+
+\usepackage[vietnamese]{babel}
+\AtBeginDocument{\renewcommand{\contentsname}{MỤC LỤC}}
+\AtBeginDocument{\renewcommand{\listfigurename}{DANH MỤC HÌNH VẼ}}
+\AtBeginDocument{\renewcommand{\listtablename}{DANH MỤC BẢNG BIỂU}}
+\AtBeginDocument{\renewcommand{\figurename}{{\fontsize{12pt}{0pt}\selectfont \bfseries Hình}}}
+\AtBeginDocument{\renewcommand{\thefigure}{{\thechapter.\arabic{figure}}}}
+% \usepackage[font=bf]{caption}
+\captionsetup[figure]{labelsep=space}
+
+\renewcommand{\tablename}{{\fontsize{12pt}{0pt}\selectfont \bfseries Bảng}}
+\renewcommand{\thetable}{{\thechapter.\arabic{table}}}
+\captionsetup[table]{labelsep=space}
+
+\RequirePackage{listings}
+\renewcommand\lstlistlistingname{Danh sách codes}
+\definecolor{darkgray}{rgb}{0.66, 0.66, 0.66}
+\definecolor{darkorange}{rgb}{1.0, 0.55, 0.0}
+\definecolor{gray}{rgb}{0.97,0.97,0.99}
+\definecolor{teal}{rgb}{0.0, 0.5, 0.5}
+\definecolor{comment}{rgb}{0.6, 0, 0.9}
+\lstdefinestyle{mystyle}{
+	language = Python,
+	backgroundcolor=\color{gray},
+	commentstyle=\color{comment},
+	keywordstyle=\bfseries\color{darkorange},
+	numberstyle=\scriptsize\color{darkgray},
+	stringstyle=\color{teal},
+	basicstyle=\scriptsize\ttfamily,%\linespread{1}
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=t,
+	keepspaces=false,
+	numbers=left,
+	numbersep=3pt,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	tabsize=4
+}
+
+\lstset{style=mystyle,
+literate=%
+{À}{{\`A}}1
+{Ả}{{\h{A}}}1
+{Ã}{{\~A}}1
+{Á}{{\'A}}1
+{Ạ}{{\d{A}}}1
+{Ă}{{\Abreve}}1
+{Ằ}{{\`\Abreve}}1
+{Ẳ}{{\h\Abreve}}1
+{Ẵ}{{\~\Abreve}}1
+{Ắ}{{\'\Abreve}}1
+{Ặ}{{\d\Abreve}}1
+{Â}{{\Acircumflex}}1
+{Ầ}{{\'\Acircumflex}}1
+{Ẩ}{{\h\Acircumflex}}1
+{Ẫ}{{\~\Acircumflex}}1
+{Ấ}{{\'\Acircumflex}}1
+{Ậ}{{\d\Acircumflex}}1
+{Ẩ}{{\h\Acircumflex}}1
+{Đ}{{\DJ}}1
+{È}{{\`E}}1
+{Ẻ}{{\h{E}}}1
+{Ẽ}{{\~E}}1
+{É}{{\'E}}1
+{Ẹ}{{\d{E}}}1
+{Ê}{{\Ecircumflex}}1
+{Ề}{{\`\Ecircumflex}}1
+{Ể}{{\h\Ecircumflex}}1
+{Ễ}{{\~\Ecircumflex}}1
+{Ế}{{\'\Ecircumflex}}1
+{Ệ}{{\d\Ecircumflex}}1
+{Ì}{{\`I}}1
+{Ỉ}{{\h{I}}}1
+{Ĩ}{{\~I}}1
+{Í}{{\'I}}1
+{Ị}{{\d{I}}}1
+{Ò}{{\`O}}1
+{Ỏ}{{\h{O}}}1
+{Õ}{{\~O}}1
+{Ó}{{\'O}}1
+{Ọ}{{\d{O}}}1
+{Ô}{{\Ocircumflex}}1
+{Ồ}{{\`\Ocircumflex}}1
+{Ổ}{{\h\Ocircumflex}}1
+{Ỗ}{{\~\Ocircumflex}}1
+{Ố}{{\'\Ocircumflex}}1
+{Ộ}{{\d\Ocircumflex}}1
+{Ơ}{{\Ohorn}}1
+{Ờ}{{\`\Ohorn}}1
+{Ở}{{\h\Ohorn}}1
+{Ỡ}{{\~\Ohorn}}1
+{Ớ}{{\'\Ohorn}}1
+{Ợ}{{\d\Ohorn}}1
+{Ù}{{\`U}}1
+{Ủ}{{\h{U}}}1
+{Ũ}{{\~U}}1
+{Ú}{{\'U}}1
+{Ụ}{{\d{U}}}1
+{Ư}{{\Uhorn}}1
+{Ừ}{{\`\Uhorn}}1
+{Ử}{{\h\Uhorn}}1
+{Ữ}{{\~\Uhorn}}1
+{Ứ}{{\'\Uhorn}}1
+{Ự}{{\d\Uhorn}}1
+{Ỳ}{{\`Y}}1
+{Ỷ}{{\h{Y}}}1
+{Ỹ}{{\~Y}}1
+{Ý}{{\'Y}}1
+{Ỵ}{{\d{Y}}}1
+{à}{{\`a}}1
+{ả}{{\h{a}}}1
+{ã}{{\~a}}1
+{á}{{\'a}}1
+{ạ}{{\d{a}}}1
+{ă}{{\abreve}}1
+{ằ}{{\`\abreve}}1
+{ẳ}{{\h\abreve}}1
+{ẵ}{{\~\abreve}}1
+{ắ}{{\'\abreve}}1
+{ặ}{{\d\abreve}}1
+{â}{{\acircumflex}}1
+{ầ}{{\`\acircumflex}}1
+{ẩ}{{\h\acircumflex}}1
+{ẫ}{{\~\acircumflex}}1
+{ấ}{{\'\acircumflex}}1
+{ậ}{{\d\acircumflex}}1
+{ẩ}{{\h\acircumflex}}1
+{đ}{{\dj}}1
+{è}{{\`e}}1
+{ẻ}{{\h{e}}}1
+{ẽ}{{\~e}}1
+{é}{{\'e}}1
+{ẹ}{{\d{e}}}1
+{ê}{{\ecircumflex}}1
+{ề}{{\`\ecircumflex}}1
+{ể}{{\h\ecircumflex}}1
+{ễ}{{\~\ecircumflex}}1
+{ế}{{\'\ecircumflex}}1
+{ệ}{{\d\ecircumflex}}1
+{ì}{{\`i}}1
+{ỉ}{{\h{i}}}1
+{ĩ}{{\~i}}1
+{í}{{\'i}}1
+{ị}{{\d{i}}}1
+{ò}{{\`o}}1
+{ỏ}{{\h{o}}}1
+{õ}{{\~o}}1
+{ó}{{\'o}}1
+{ọ}{{\d{o}}}1
+{ô}{{\ocircumflex}}1
+{ồ}{{\`\ocircumflex}}1
+{ổ}{{\h\ocircumflex}}1
+{ỗ}{{\~\ocircumflex}}1
+{ố}{{\'\ocircumflex}}1
+{ộ}{{\d\ocircumflex}}1
+{ơ}{{\ohorn}}1
+{ờ}{{\`\ohorn}}1
+{ở}{{\h\ohorn}}1
+{ỡ}{{\~\ohorn}}1
+{ớ}{{\'\ohorn}}1
+{ợ}{{\d\ohorn}}1
+{ù}{{\`u}}1
+{ủ}{{\h{u}}}1
+{ũ}{{\~u}}1
+{ú}{{\'u}}1
+{ụ}{{\d{u}}}1
+{ư}{{\uhorn}}1
+{ừ}{{\`\uhorn}}1
+{ử}{{\h\uhorn}}1
+{ữ}{{\~\uhorn}}1
+{ứ}{{\'\uhorn}}1
+{ự}{{\d\uhorn}}1
+{ỳ}{{\`y}}1
+{ỷ}{{\h{y}}}1
+{ỹ}{{\~y}}1
+{ý}{{\'y}}1
+{ỵ}{{\d{y}}}1
+}
+\renewcommand{\lstlistingname}{Mã}
+
+\lstset{inputencoding=utf8}
+
+
+\begin{document}
+	\fontsize{13pt}{18pt}\selectfont    %Lệnh thay đổi cỡ chữ thành cỡ 14, cỡ dòng 18 (theo quy chuẩn của Khóa Luận TN).
+	
+	\setlength{\baselineskip}{18truept}
+	\begin{titlepage}                                                       % Đây là trang bìa
+		
+		%\begin{tikzpicture}[remember picture, overlay]
+		% \draw[line width = 4pt] ($(current page.north west) + (1in,-0.7in)$) rectangle ($(current page.south east) + (-0.5in,0.7in)$);
+		%\end{tikzpicture}
+		\begin{center}
+			\fontsize{15pt}{16pt}\selectfont
+			{\bf ĐẠI HỌC BÁCH KHOA HÀ NỘI}\\
+			%{\bf VIỆN TOÁN ỨNG DỤNG VÀ TIN HỌC}
+			%\centerline{--------------------o0o--------------------}  
+		\end{center}
+		\vspace{3cm}
+		\begin{center}
+			\fontsize{25pt}{15pt}\selectfont	
+			\textbf{ĐỒ ÁN CHUỖI THỜI GIAN}\\
+		\end{center}
+		\vspace{1cm}
+		\begin{center}
+			\fontsize{23pt}{16pt}\selectfont
+			
+			\textbf{Mô hình VAR và Holt-Winters và ứng dụng trong bài toán dự đoán nhu cầu sản phẩm}  
+		\end{center}
+		\vspace{0.7cm}
+		\begin{center}
+			\fontsize{14pt}{16pt}\selectfont 	
+			{\bf Tạ Duy Hải - 20206197}\\	
+			\fontsize{14pt}{16pt}\fontsize{14pt}{16pt}\selectfont 	
+			{\bf Nguyễn Văn Nghiêm - 20206206}\\
+			\fontsize{14pt}{16pt}\selectfont 	
+			{\bf Nguyễn Hoàng Sơn - 20206165}\\
+			\fontsize{14pt}{16pt}\selectfont 
+			%{\bf Chuyên sâu: Transfer Learning}\\
+		\end{center}
+		\vspace{2.5 cm}
+		\fontsize{13pt}{16pt}\selectfont
+		\begin{tabular}
+			{@{\hspace{1cm}} l @{\hspace{0.2cm}}p{11.5cm}l}
+			
+			{\bf Giảng viên hướng dẫn:} &  TS. Nguyễn Thị Ngọc Anh \quad $_{\overline{\text{Chữ kí của GVHD}}}$\\
+			{\bf Khoa:} &  Toán - Tin\\
+		\end{tabular}
+		
+		\vspace{3cm}
+		\begin{center}
+			{\bf HÀ NỘI, 1/2024}
+		\end{center}
+	\end{titlepage}
+	\begin{center}
+		\bf Lời cảm ơn\\
+	\end{center}
+	
+	Nhóm chúng em xin gửi lời cảm ơn sâu sắc tới \textbf{TS.Nguyễn Thị Ngọc Anh}, người giảng viên đã tận tình chỉ bảo, luôn theo dõi sát sao và giúp đỡ chúng em trong quá trình nghiên cứu. Không có những lời động viên và hướng dẫn của cô, đồ án sẽ không thể hoàn thiện.
+    \\
+
+    Chúng em cũng xin gửi lời cảm ơn đến khoa Toán - Tin, Trường Đại học Bách Khoa Hà Nội đã cung cấp những kiến thức để tạo điều kiện thuận lợi cho chúng em hoàn thành đồ án này.
+    \\
+    
+    Nhóm chúng em đặc biệt cảm ơn gia đình, người thân, bạn bè luôn ở bên và hỗ trợ trong quá trình thực hiện đồ án.
+    \\
+    
+    Chúng em xin chân thành cảm ơn!
+    \thispagestyle{empty}
+    \newpage 
+	
+	\begin{center}
+		\bf Tóm tắt nội dung đề tài
+	\end{center}
+	%\chapter*{Tóm tắt nội dung đồ án}
+	\thispagestyle{empty}
+	\newpage
+	\addtocontents{toc}{{\protect\thispagestyle{empty}}}
+	\tableofcontents
+	\thispagestyle{empty}
+	\newpage
+	%\listoffigures
+	
+	{\let\oldnumberline\numberline
+\renewcommand{\numberline}{Hình~\oldnumberline}
+\listoffigures} 
+\thispagestyle{empty}
+\newpage
+	
+	\newpage
+	%\listoftables
+	{\let\oldnumberline\numberline
+\renewcommand{\numberline}{Bảng~\oldnumberline}
+\listoftables}
+\thispagestyle{empty}
+	\newpage
+	\newpage
+	\chapter*{DANH MỤC KÍ HIỆU VÀ CHỮ VIẾT TẮT}
+	\begin{table}[htp]
+		\centering
+		\begin{tabular}{ll}
+			
+			\textbf{Từ viết tắt} & \textbf{Ý nghĩa}\\
+			LSTM & Long short-term memory \\
+    		RNN & Recurrent Neural Network\\
+                VAR & Vector Autoregression
+		\end{tabular}
+	\end{table}~
+\\
+\thispagestyle{empty}
+	\newpage
+	\input{chapter1.tex}
+	\input{chapter2.tex}
+	\input{chapter3.tex}
+	\input{chapter4.tex}
+	
+\begin{thebibliography}{99}\rm
+\addcontentsline{toc}{chapter}{\bf Tài liệu tham khảo}
+\bibitem{Ber2007} Bermúdez. J. D., Segura, J. V., \& Vercher, E. , Holt–Winters forecasting: an alternative formulation applied to UK air passenger data, \textit{Journal of Applied Statistics}, 34(9), 1075-1090, 2007.
+\bibitem{Jones1978} Jones. R. H.,  Multivariate autoregression estimation using residuals. \textit{In Applied Time Series Analysis I} (pp. 139-162). Academic Press, 1978.
+
+\bibitem{HELMUT2005} \text{Helmut L\"utkepohl}, \textit{New Introduction to Multiple Time Series Analysis}, Springer Berlin, Heidelberg, 2005.
+
+\end{thebibliography}
+
+
+	
+\end{document}

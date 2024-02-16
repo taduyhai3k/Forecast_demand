@@ -1,0 +1,196 @@
+\chapter{CƠ SỞ LÝ THUYẾT}
+\section{Mô hình VAR}
+
+Ta có chuỗi thời gian đa biến K chiều T quan sát $y_1,\dots,y_T$ với $y_t = (y_{1t}, \dots, y_{Kt})$ là quá trình dừng và công thức chung:
+
+\begin{equation}
+    y_t = \nu + A_1 y_{t-1} + \dots + A_p y_{t-p} + u_t. \label{2.1.1}
+\end{equation}
+
+Với $\nu = (\nu_1, \dots, \nu_K)$ là vector hằng số $K \times 1$, $A_i$ là ma trận hệ số $K \times K$ và $u_t$ là nhiễu trắng với ma trận hiệp phương sai $\Sigma_u$.
+
+\subsection{Ước lượng hệ số bằng phương pháp Ordinary Least Squares (OLS)}
+Phương pháp được trình bày trong \cite{HELMUT2005}
+Ta định nghĩa:
+\begin{align*}
+    & Y := (y_1, \dots, y_T) & (K \times T), \\    
+    & B := (\nu, A_1, \dots, A_p) & (K \times (Kp + 1)), \\   
+    & Z_t := [1, y_t, \dots, y_{t-p+1}]' &  ((Kp + 1) \times 1), \\
+    & Z := (Z_0, \dots, Z_{T-1}) & ((Kp + 1) \times T), \\
+    & U := (u_1,\dots, u_T) & (K \times T), \\
+    & \textbf{y} := \text{vec}(Y) & (KT \times 1), \\
+    & \beta := \text{vec}(B) & ((K^2p+K) \times 1), \\
+\end{align*}
+
+\begin{align*}
+       & \textbf{b} := \text{vec}(B') & ((K^2p+K) \times 1), \\
+    & \textbf{u} := \text{vec}(U) & (KT \times 1). \\
+\end{align*}
+
+Khi đó, công thức \ref{2.1.1} được viết lại thành
+
+\begin{equation}
+    Y = BZ + U.
+\end{equation}
+
+Khi đó, ta có: 
+\begin{align*}
+        \text{vec}(Y) & = \text{vec}(BZ) +\text{vec}(U) \\ 
+        & = (Z' \otimes I_K) \text{vec}(B) + \text{vec}(U)
+\end{align*}
+
+hay
+\begin{equation}
+    \textbf{y} = (Z' \otimes I_K) \beta + \textbf{u}.
+\end{equation}
+
+lưu ý rằng, ma trận hiệp phương sai của \textbf{u} : $\Sigma_{\textbf{u}} = I_T \otimes \Sigma_u$
+
+Ta cần cực tiểu hàm sau để tìm được ước lượng cho $\beta$:
+
+\begin{equation}
+    S(\beta) = \textbf{u}' (I_T \otimes \Sigma_u)^{-1} \textbf{u}.
+\end{equation}
+
+thu được ước lượng:
+
+\begin{equation}
+    \hat{\beta} = ((ZZ')^{-1}Z \otimes I_K )\textbf{y}.
+\end{equation}
+
+
+
+\subsection{Ước lượng hệ số bằng phương pháp  Durbin-Levinson}
+
+Whittle (1963) và Robinson (1963) đã khái quát thuật toán Durbin - Levison cho trường hợp chuỗi thời gian đa biến. Công thức được trình bày trong \cite{Jones1978}.
+
+Với $y_1, y_2, \dots, y_T$ là các biến quan sát của chuỗi thời gian dừng $K$ chiều. 
+
+Ta có ma trận hiệp phương sai kích thước $K \times K$ với độ trễ $j$:
+
+\begin{equation}
+    \hat{R_j} = \frac{1}{n} \sum_{t = 1} ^{n-j} y_{t+j} y_t '.
+\end{equation}
+
+Chuỗi AR bậc $p$ có dự đoán tiến:
+
+\begin{equation}
+    \hat{y_t}^{(f)} = \sum_{k = 1}^p A_k^{(p)} y_{t-k},
+\end{equation}
+
+và dự đoán lùi:
+
+\begin{equation}
+    \hat{y_t}^{(b)} = \sum_{k=1}^p B_k^{(p)} y_{t+k}, 
+\end{equation}
+
+với $A_k^{(p)}$ và $B_k^{(p)}$ là ma trận $K \times K$. 
+
+Giá trị khởi tạo:
+
+\begin{equation}
+    S_0^{(f)} = S_0^{(b)} = R_0
+\end{equation}
+
+Bước đầu tiên:
+
+\begin{align}
+    & A_1^{(1)} = R_1 \left[ S_0 ^{(b)} \right]^{-1} \\
+    & B_1^{(1)} = R_{-1} \left[ S_0 ^{(f)} \right]^{-1}
+\end{align}
+
+
+với 
+\[
+    R_{-1} = R_1'
+\]
+
+Công thức chung:
+
+\begin{align}
+    & A_p^{(p)} = (R_p - \sum_{k=1}^{p-1} A_k^{(p-1)} R_{(p-k)} ) \left[ S_{(p-1)}^{(b)}\right]^{-1} \\
+    & B_p^{(p)} = (R_p' - \sum_{k=1}^{p-1} B_k^{(p-1)} R'_{(p-k)} ) \left[ S_{(p-1)}^{(f)}\right]^{-1}
+\end{align}
+
+Công thức cập nhật ma trận:
+
+\begin{align}
+    & A_k^{(p)} = A_k^{(p-1)} - A_p^{(p)} B_{p-k}^{(p-1)} \\
+     & B_k^{(p)} = B_k^{(p-1)} - B_p^{(p)} A_{p-k}^{(p-1)}
+\end{align}
+
+Dự báo 1 bước tiến và lùi của ma trận hiệp phương sai nhiễu:
+
+\begin{align}
+    & S_p^{(f)} = (I - A_p^{(p)} B_p^(p)) S_{p-1} ^{(f)} \\
+    & S_p^{(b)} = (I - B_p^{(p)} A_p^(p)) S_{p-1} ^{(b)}
+\end{align}
+
+\section{Mô hình Holt-Winters}
+    Phương pháp Holt-Winters là một phương pháp dự báo chuỗi thời gian mạnh mẽ được thiết kế để xử lý các chuỗi có tính xu hướng và tính mùa. Được giới thiệu bởi Holt và cải tiến bởi Winters vào năm 1960, phương pháp này đã trở thành một trong những kỹ thuật phổ biến trong lĩnh vực dự báo chuỗi thời gian. Phương pháp này bao gồm một phương trình dự báo và ba phương trình làm mịn, một cho mức độ, một cho tính xu thế và một cho tính mùa. Trong phần này nhóm tác giả trình bày phương pháp Holt-Winters cộng tính và biến thể để sử dụng với chuỗi thời gian đa biến. 
+
+    Xét chuỗi thời gian đơn biến $\textbf{y} = \left\{y_1, \dots, y_t\right\}$ với tính mùa có chu kỳ $p$. Các quan sát này được biểu diễn dưới dạng $y_i = a_{i-1} + b_{i-1} + c_{i-1}, \ i= \overline{1, t}$, trong đó $a_i$ là thành phần mức độ, $b_i$ là phần xu thế và $c_i$ là phần mùa. Phương pháp cộng tính có $3$ phương trình làm mượt và một phương trình dự báo như sau:
+    \begin{align} 
+        &a_i = \alpha\left(y_i - c_{i-p}\right) + \left(1-\alpha\right)\left(a_{i-1} + b_{i-1}\right),\label{Haieq2} \\
+        &b_i = \beta\left(a_i - a_{i-1}\right) + \left(1 - \beta\right)b_{i-1}, \label{Haieq3}\\
+        &c_i = \gamma\left(y_i - a_{i-1} - b_{i-1}\right) + \left(1-\gamma\right)c_{i-p},\label{Haieq4} \\
+        &\hat{y}_{t+h \vert t} = a_t + h b_t + c_{t+h - p\left(k+1\right)}.
+    \end{align}
+    Bermúdez và các cộng sự \cite{Ber2007} đề xuất sử dụng mô hình hồi quy để ước lượng các tham số $\alpha, \beta, \gamma$ và giá trị ban đầu để thực hiện phương pháp cộng tính. Cụ thể các biến ngẫu nhiên $Y_i$ được biểu diễn dưới dạng
+    \begin{align}
+        Y_i = a_{i-1} + b_{i-1} + c_{i-1} +  \epsilon_i. \label{Haieq1}
+    \end{align}
+    Trong đó $\epsilon_i \sim \mathcal{N}\left(0, \sigma^2\right)$. Kết hợp \eqref{Haieq1} với \eqref{Haieq2}, \eqref{Haieq3}, \eqref{Haieq4} thu được biểu diễn:
+    \begin{align*}
+        &Y_1 = a_0 + b_0 + c_{1-p} + \epsilon_1  \\
+        &Y_2 = a_0 + 2b_0 + c_{2-p} + \alpha\left(1+\beta\right)\epsilon_1 +  \epsilon_2  \\
+        & \vdots \\
+        & Y_{p+1} = a_0 + \left(p + 1\right)b_0 + c_{1-p} + \gamma \epsilon_1 + \alpha \sum_{r= 1}^p \left(1 + \beta\left(p+1-r\right)\right)\epsilon_r + \epsilon_{p+1} \\
+        &\dots
+    \end{align*}
+    Từ biểu diễn trên, tổng hợp lại thu được biểu diễn dạng ma trận
+    \begin{align}
+        \textbf{Y} = M \psi + L \epsilon         
+    \end{align}
+    Trong đó $\psi = \left(b_0, c_{1-p}, c_{2-p}, \dots, c_0\right)', a_0 = -b_0$ là véc tơ điều kiện ban đầu, $M$ là ma trận cỡ $t \times \left(p+1\right)$ với cột đầu tiên là $\left(0,1, \dots,t-1 \right)$ và $p$ cột còn lại được tạo bởi các ma trận đơn vị cỡ $p \times p$ xếp từ trên xuống dưới đủ $t$ hàng. Ma trận $L$ có biểu diễn
+    \begin{align}
+        L = \begin{bmatrix}
+        1 & 0 & 0 & \dots & 0  & 0\\
+        l_2 & 1 & 0 & \dots & 0  & 0\\
+        l_3 & l_2 & 1 & \dots & 0  &0\\
+        \vdots& \vdots& \vdots& \ddots&\vdots &\vdots\\
+        l_{n-1} & l_{n-2} & l_{n-3} & \dots& 1 & 0\\
+        l_n& l_{n-1}& l_{n-2}&\dots&l_2&1
+        \end{bmatrix}
+    \end{align}
+    với $l_i = \alpha\left(1 + \left(i-1\right)\beta\right) + \gamma\left(i = 1 \ \text{mod} \ p \right)$. $\epsilon = \left(\epsilon_1, \dots, \epsilon_t\right)$ là véc tơ nhiễu ngẫu nhiên độc lập cùng phân phối chuẩn.
+    Hàm Log-Likelihood của $\textbf{Y}$ lúc này bằng
+    \begin{align}
+        -\dfrac{t}{2}\ln\left(\sigma^2\right) - \dfrac{1}{2\sigma^2} \left(\textbf{Y} - M \psi\right)'\left(LL'\right)^{-1}\left(\textbf{Y} - M \psi\right).
+    \end{align}
+    Các tham số $\alpha, \beta, \gamma$ được xác định bằng cực đại hàm hợp lý trên, tương đương với cực tiểu hóa
+    \begin{align}
+        \min_{\alpha, \beta, \gamma} \left(L^{-1} \textbf{Y}\right)' \left(I - P_X\right) L^{-1} \textbf{Y}.
+    \end{align}
+    Trong đó $X = L^{-1}M$ và $P_X = X \left(X'X\right)^{-1}X'$. Sau khi thu được $\alpha, \beta, \gamma$, ta sẽ tính lại $\hat{L}, \hat{X}$, từ đó ước lượng được véc tơ điều kiện ban đầu
+    \begin{align}
+        \hat{\psi} = \left(\hat{X}'\hat{X}\right)^{-1} \hat{X}'\hat{L}^{-1} \textbf{Y}.
+    \end{align}
+    
+    Với bộ điều kiện ban đầu $\psi$, ta đã có thể sử dụng phương pháp cộng tính để tính các tham số và đưa ra dự báo. Lưu ý rằng mô hình trên hoạt động với chuỗi thời gian đơn biến. Xét chuỗi thời gian đa biến $\mathcal{Y} = \left(\textbf{Y}_1, \dots, \textbf{Y}_n\right) $ với $\textbf{Y}_i = \left(Y_{1i}, \dots, Y_{ti}\right)$. Để mô hình hồi quy trên áp dụng được, nhóm tác giả coi các véc tơ $\textbf{Y}_i$ đều có biểu diễn
+    \begin{align}
+        \textbf{Y}_i = M \psi + L \epsilon.  
+    \end{align}
+    Hay các chuỗi đều có chung bộ tham số $\alpha, \beta, \gamma$. Các tham số này được tìm bằng cách cực tiểu hóa
+    \begin{align}
+        \min_{\alpha, \beta, \gamma} \sum_{i=1}^n \left(L^{-1} \textbf{Y}_i\right)' \left(I - P_X\right) L^{-1} \textbf{Y}_i.        
+    \end{align}
+    Các ước lượng điều kiện ban đầu thu được bởi
+    \begin{align}
+        \hat{\psi}_i = \left(\hat{X}'\hat{X}\right)^{-1} \hat{X}'\hat{L}^{-1} \textbf{Y}_i.        
+    \end{align}
+    Ngoài ra nhóm tác giả còn đề xuất cách tìm $\alpha, \beta, \gamma$ thông qua cực tiểu hàm bình phương sai số
+    \begin{align}
+        \min_{\alpha, \beta,\gamma} \dfrac{\sum_{i=1}^n w_i \sum_{j=1}^t \left(Y_{ji} - \hat{Y}_{ji}\right)^2}{\sum_{i=1}^n w_i}.
+    \end{align}
+    Với $\hat{Y}_{ji} = a_{j-1, i} + b_{j-1,i} + c_{j-1,i}$.

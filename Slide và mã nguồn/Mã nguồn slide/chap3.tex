@@ -1,0 +1,122 @@
+\begin{frame}{Mô hình làm mượt Holt-Winters}
+    Phương pháp Holt-Winters là một phương pháp dự báo chuỗi thời gian
+mạnh mẽ được thiết kế để xử lý các chuỗi có tính xu hướng và tính mùa.
+
+Trong phần này nhóm tác giả trình bày phương pháp Holt-Winters cộng tính và biến thể để sử dụng với chuỗi thời gian đa biến. 
+\end{frame}
+
+\begin{frame}{Mô hình làm mượt Holt-Winters}
+       Xét chuỗi thời gian đơn biến $\textbf{y} = \left\{y_1, \dots, y_t\right\}$ với tính mùa có chu kỳ $p$. 
+       
+       Các quan sát này được biểu diễn dưới dạng $y_i = a_{i-1} + b_{i-1} + c_{i-1}, \ i= \overline{1, t}$, trong đó $a_i$ là thành phần mức độ, $b_i$ là phần xu thế và $c_i$ là phần mùa.
+\end{frame}
+
+\begin{frame}{Mô hình làm mượt Holt-Winters}
+    Phương pháp cộng tính có $3$ phương trình làm mượt và một phương trình dự báo như sau:
+    \begin{align} 
+        &a_i = \alpha\left(y_i - c_{i-p}\right) + \left(1-\alpha\right)\left(a_{i-1} + b_{i-1}\right),\label{eq:3.1} \\
+        &b_i = \beta\left(a_i - a_{i-1}\right) + \left(1 - \beta\right)b_{i-1}, \label{eq:3.2}\\
+        &c_i = \gamma\left(y_i - a_{i-1} - b_{i-1}\right) + \left(1-\gamma\right)c_{i-p},\label{eq:3.3} \\
+        &\hat{y}_{t+h \vert t} = a_t + h b_t + c_{t+h - p\left(k+1\right)}. \label{eq:3.4}
+    \end{align}
+    
+\end{frame}
+
+\begin{frame}{Mô hình làm mượt Holt-Winters}
+    Bermúdez và các cộng sự \footnote{Bermúdez. J. D., Segura, J. V., \& Vercher, E. , Holt–Winters forecasting: an alternative formulation applied to UK air passenger data, \textit{Journal of Applied Statistics}, 34(9), 1075-1090, 2007.} đề xuất sử dụng mô hình hồi quy để ước lượng các tham số $\alpha, \beta, \gamma$ và giá trị ban đầu để thực hiện phương pháp cộng tính. Cụ thể các biến ngẫu nhiên $Y_i$ được biểu diễn dưới dạng
+    \begin{align}
+        Y_i = a_{i-1} + b_{i-1} + c_{i-1} +  \epsilon_i. \label{eq:3.5}
+    \end{align}
+    Trong đó $\epsilon_i \sim \mathcal{N}\left(0, \sigma^2\right)$.
+\end{frame}
+
+
+\begin{frame}{Mô hình làm mượt Holt-Winters}
+    Kết hợp \ref{eq:3.5}, \ref{eq:3.1}, \ref{eq:3.2}, \ref{eq:3.3} thu được biểu diễn:
+
+    \begin{align*}
+        &Y_1 = a_0 + b_0 + c_{1-p} + \epsilon_1  \\
+        &Y_2 = a_0 + 2b_0 + c_{2-p} + \alpha\left(1+\beta\right)\epsilon_1 +  \epsilon_2  \\
+        & \vdots \\
+        & Y_{p+1} = a_0 + \left(p + 1\right)b_0 + c_{1-p} + \gamma \epsilon_1 + \alpha \sum_{r= 1}^p \left(1 + \beta\left(p+1-r\right)\right)\epsilon_r + \epsilon_{p+1} \\
+        &\dots
+    \end{align*}
+\end{frame}
+
+
+\begin{frame}{Mô hình làm mượt Holt-Winters}
+      Từ biểu diễn trên, tổng hợp lại thu được biểu diễn dạng ma trận
+    \begin{align}
+        \textbf{Y} = M \psi + L \epsilon         
+    \end{align}
+    
+    Trong đó $\psi = \left(b_0, c_{1-p}, c_{2-p}, \dots, c_0\right)', a_0 = -b_0$ là véc tơ điều kiện ban đầu, $M$ là ma trận cỡ $t \times \left(p+1\right)$ với cột đầu tiên là $\left(0,1, \dots,t-1 \right)$ và $p$ cột còn lại được tạo bởi các ma trận đơn vị cỡ $p \times p$ xếp từ trên xuống dưới đủ $t$ hàng.  
+\end{frame}
+
+\begin{frame}{Mô hình làm mượt Holt-Winters}
+     Ma trận $L$ có biểu diễn
+    \begin{align}
+        L = \begin{bmatrix}
+        1 & 0 & 0 & \dots & 0  & 0\\
+        l_2 & 1 & 0 & \dots & 0  & 0\\
+        l_3 & l_2 & 1 & \dots & 0  &0\\
+        \vdots& \vdots& \vdots& \ddots&\vdots &\vdots\\
+        l_{n-1} & l_{n-2} & l_{n-3} & \dots& 1 & 0\\
+        l_n& l_{n-1}& l_{n-2}&\dots&l_2&1
+        \end{bmatrix}
+    \end{align}
+    
+    với $l_i = \alpha\left(1 + \left(i-1\right)\beta\right) + \gamma\left(i = 1 \ \text{mod} \ p \right)$. $\epsilon = \left(\epsilon_1, \dots, \epsilon_t\right)$ là véc tơ nhiễu ngẫu nhiên độc lập cùng phân phối chuẩn.
+\end{frame}
+
+
+\begin{frame}{Mô hình làm mượt Holt-Winters}
+    Hàm Log-Likelihood của $\textbf{Y}$ lúc này bằng
+    \begin{align}
+        -\dfrac{t}{2}\ln\left(\sigma^2\right) - \dfrac{1}{2\sigma^2} \left(\textbf{Y} - M \psi\right)'\left(LL'\right)^{-1}\left(\textbf{Y} - M \psi\right).
+    \end{align}
+    Các tham số $\alpha, \beta, \gamma$ được xác định bằng cực đại hàm hợp lý trên, tương đương với cực tiểu hóa
+    \begin{align}
+        \min_{\alpha, \beta, \gamma} \left(L^{-1} \textbf{Y}\right)' \left(I - P_X\right) L^{-1} \textbf{Y}.
+    \end{align}
+    
+    Trong đó $X = L^{-1}M$ và $P_X = X \left(X'X\right)^{-1}X'$.
+\end{frame}
+
+\begin{frame}{Mô hình làm mượt Holt-Winters}
+    Sau khi thu được $\alpha, \beta, \gamma$, ta sẽ tính lại $\hat{L}, \hat{X}$, từ đó ước lượng được véc tơ điều kiện ban đầu
+    \begin{align}
+        \hat{\psi} = \left(\hat{X}'\hat{X}\right)^{-1} \hat{X}'\hat{L}^{-1} \textbf{Y}.
+    \end{align}
+    
+    Với bộ điều kiện ban đầu $\psi$, ta đã có thể sử dụng phương pháp cộng tính để tính các tham số và đưa ra dự báo. Lưu ý rằng mô hình trên hoạt động với chuỗi thời gian đơn biến.
+\end{frame}
+
+\begin{frame}{Mô hình làm mượt Holt-Winters}
+    Xét chuỗi thời gian đa biến $\mathcal{Y} = \left(\textbf{Y}_1, \dots, \textbf{Y}_n\right) $ với $\textbf{Y}_i = \left(Y_{1i}, \dots, Y_{ti}\right)$. Để mô hình hồi quy trên áp dụng được, nhóm tác giả coi các véc tơ $\textbf{Y}_i$ đều có biểu diễn
+    \begin{align}
+        \textbf{Y}_i = M \psi + L \epsilon.  
+    \end{align}
+    
+    Hay các chuỗi đều có chung bộ tham số $\alpha, \beta, \gamma$.
+\end{frame}
+
+\begin{frame}{Mô hình làm mượt Holt-Winters}
+    Các tham số này được tìm bằng cách cực tiểu hóa
+    \begin{align}
+        \min_{\alpha, \beta, \gamma} \sum_{i=1}^n \left(L^{-1} \textbf{Y}_i\right)' \left(I - P_X\right) L^{-1} \textbf{Y}_i.        
+    \end{align}
+    
+    Các ước lượng điều kiện ban đầu thu được bởi
+    \begin{align}
+        \hat{\psi}_i = \left(\hat{X}'\hat{X}\right)^{-1} \hat{X}'\hat{L}^{-1} \textbf{Y}_i.        
+    \end{align}
+\end{frame}
+
+\begin{frame}{Mô hình làm mượt Holt-Winters}
+        Ngoài ra nhóm tác giả còn đề xuất cách tìm $\alpha, \beta, \gamma$ thông qua cực tiểu hàm bình phương sai số
+    \begin{align}
+        \min_{\alpha, \beta,\gamma} \dfrac{\sum_{i=1}^n w_i \sum_{j=1}^t \left(Y_{ji} - \hat{Y}_{ji}\right)^2}{\sum_{i=1}^n w_i}.
+    \end{align}
+    Với $\hat{Y}_{ji} = a_{j-1, i} + b_{j-1,i} + c_{j-1,i}$.
+\end{frame}
